@@ -28,4 +28,8 @@ public abstract class Account {
 	public String toString() {
 		return String.format("Numéro de compte: %s%nSolde: %s%n", code, balance);
 	}
+
+	public int getCode() {
+		return code;
+	}
 }
