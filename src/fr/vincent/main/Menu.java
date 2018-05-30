@@ -22,16 +22,20 @@ public class Menu {
 		System.out.println("Agence:");
 		System.out.println("1 - Créer une agence");
 		System.out.println("2 - Séléctionner une agence");
+		System.out.println("3 - Supprimer une agence");
 		selectAgency(sc.nextInt());
 	}
 	
-	public void selectAgency(int agencyChoice) throws Throwable {
+	private void selectAgency(int agencyChoice) throws Throwable {
 		switch (agencyChoice) {
 		case 1:
 			createAgency();
 			break;
 		case 2:
 			listAgency();
+			break;
+		case 3:
+			removeAgency(sc.nextInt());
 			break;
 
 		default:
@@ -40,7 +44,7 @@ public class Menu {
 		}
 	}
 	
-	public void listAgency() throws Throwable {
+	private void listAgency() throws Throwable {
 		for (int i = 0, lt = listAgencies.size(); i < lt; i++) {
 			System.out.println((i + 1) + " " + listAgencies.get(i).getAddress());
 		}
@@ -54,7 +58,7 @@ public class Menu {
 		createAccount();
 	}
 	
-	public void createAgency() throws Throwable {
+	private void createAgency() throws Throwable {
 		sc.nextLine();
 		agency = new Agency();
 		listAgencies.add(agency);
@@ -63,12 +67,26 @@ public class Menu {
 		createAccount();
 	}
 	
-	public void createAccount() throws Throwable {
+	private void removeAgency(int value) throws Throwable {
+		sc.nextLine();
+		
+		for (int i = 0, lt = listAgencies.size(); i < lt; i++) {
+			System.out.println((i + 1) + " " + listAgencies.get(i).getAddress());
+		}
+		
+		System.out.println("Sélectionner une agence:");
+		listAgencies.remove(value - 1);
+		agency();
+	}
+	
+	private void createAccount() throws Throwable {
 		System.out.println("Créer un compte");
 		System.out.println("1 - compte simple");
 		System.out.println("2 - compte épargne");
 		System.out.println("3 - compte payant");
-		System.out.println("4 - retour");
+		System.out.println("4 - supprimer un compte");
+		System.out.println("5 - modifier un compte");
+		System.out.println("6 - retour");
 		selectAccount(sc.nextInt());
 		sc.nextLine();
 	}
@@ -85,6 +103,12 @@ public class Menu {
 			createPaid();
 			break;
 		case 4:
+			removeAccount();
+			break;
+		case 5:
+			updateAccount();
+			break;
+		case 6:
 			agency();
 			break;
 		default:
@@ -124,7 +148,7 @@ public class Menu {
 		for (int i = 0, lt = agency.getListAccounts().size(); i < lt; i++) {
 			System.out.println(agency.getListAccounts().get(i));
 		}
-		System.out.println("1 - ajouter un compte");
+		System.out.println("1 - retour");
 		System.out.println("2 - créditer");
 		System.out.println("3 - débiter");
 		System.out.println("4 - sauvegarder");
@@ -132,10 +156,39 @@ public class Menu {
 		selectOperation(sc.nextInt());
 	}
 	
+	private void removeAccount() throws Throwable {
+		for (int i = 0, lt = agency.getListAccounts().size(); i < lt; i++) {
+			System.out.println(i + " - " + agency.getListAccounts().get(i).getCode() + ": " +
+					agency.getListAccounts().get(i).getBalance());
+		}
+		
+		System.out.println("Sélectionner le compte à supprimer:");
+		agency.getListAccounts().remove(sc.nextInt());
+		sc.nextLine();
+		showAllAcounts();
+	}
+	
+	private void updateAccount() throws Throwable{
+		for (int i = 0, lt = agency.getListAccounts().size(); i < lt; i++) {
+			System.out.println(i + " - " + agency.getListAccounts().get(i).getCode() + ": " +
+					agency.getListAccounts().get(i).getBalance());
+		}
+		
+		System.out.println("Sélectionner le compte à supprimer:");
+		
+		int value = sc.nextInt();
+		Account tmp = agency.getListAccounts().get(value);
+		System.out.println("Modifier le solde du compte:");
+		tmp.setBalance(sc.nextFloat());
+		agency.getListAccounts().set(value, tmp);
+		//sc.nextLine();
+		showAllAcounts();
+	}
+	
 	private void selectOperation(int typeAccount) throws Throwable {
 		switch (typeAccount) {
 		case 1:
-			selectAccount(typeAccount);
+			createAccount();
 			break;
 		case 2:
 			addOperation();

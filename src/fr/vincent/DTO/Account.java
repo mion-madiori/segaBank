@@ -5,6 +5,10 @@ import java.io.Serializable;
 public abstract class Account implements Serializable{
 	protected Float balance = 0F;
 	protected int code;
+	public Float getBalance() {
+		return balance;
+	}
+
 	protected static int count;
 	
 	public void setBalance(Float balance) {
