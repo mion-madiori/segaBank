@@ -17,4 +17,9 @@ public class PaidAccount extends Account {
 	private Float finalAmount(Float amount) {
 		return amount - (amount * amountToPaid / 100);
 	}
+	
+	@Override
+	public String toString() {
+		return String.format("Numéro de compte: %s%nSolde: %s%nPourcentage: %s%n", code, balance, amountToPaid);
+	}
 }

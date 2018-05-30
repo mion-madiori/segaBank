@@ -1,8 +1,10 @@
 package fr.vincent.DTO;
 
-public abstract class Account {
+import java.io.Serializable;
+
+public abstract class Account implements Serializable{
 	protected Float balance = 0F;
-	private int code;
+	protected int code;
 	protected static int count;
 	
 	public void setBalance(Float balance) {

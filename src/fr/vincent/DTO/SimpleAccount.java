@@ -11,4 +11,9 @@ public class SimpleAccount extends Account {
 			throw new Exception("Découvert non-autorisé");
 		}
 	}
+	
+	@Override
+	public String toString() {
+		return String.format("Numéro de compte: %s%nSolde: %s%nDécouvert: %s%n", code, balance, overdraft);
+	}
 }
